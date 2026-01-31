@@ -6,23 +6,23 @@ on:
     branches: [ main, master ]
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
-        node-version: lts/*
+        node-version: 18
+    
     - name: Install dependencies
-      run: npm ci
+      run: npm install
+      
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+      
     - name: Run Playwright tests
-      run: npx playwright test
-    - run: |
-        # Levantar la app en segundo plano y esperar que este lista.
-        npm run dev &
-        npx playwright test
+      run: npx playwright test  # Playwright ahora encenderá la app solo
+      
     - uses: actions/upload-artifact@v4
       if: always()
       with:
