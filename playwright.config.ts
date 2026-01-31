@@ -76,4 +76,14 @@ export default defineConfig({
   //   url: 'http://localhost:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+  webServer: {
+    command: 'npm run dev',        // El comando para encender tu web
+    url: 'http://localhost:5173',  // La URL que debe esperar Playwright
+    reuseExistingServer: !process.env.CI, // En local usa el que ya tengas abierto, en CI no
+    stdout: 'ignore',
+    stderr: 'pipe',
+  },
+  use: {
+    baseURL: 'http://localhost:5173', // Así no tienes que escribir la URL completa en cada test
+  },
 });

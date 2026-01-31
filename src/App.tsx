@@ -30,12 +30,17 @@ function App() {
     setAmount('');
   };
 
+  const deleteExpense = (id: number) =>{
+    setExpenses(expenses.filter(exp => exp.id !== id));
+  };
+
+
   const total = expenses.reduce((acc, curr) => acc + curr.amount, 0);
 
   return (
     <div className="page-wrapper">
       <div className="main-card">
-        <h1 className="title">Gestor de Gastos</h1>
+        <h1 className="title">Gestor de Gastos QA</h1>
         
         <form onSubmit={addExpense} className="expense-form">
           <div className="form-group">
@@ -94,7 +99,17 @@ function App() {
                   <span className="expense-desc">{exp.description}</span>
                   <small className="expense-cat">{exp.category}</small>
                 </div>
-                <span className="expense-price">-${exp.amount.toFixed(2)}</span>
+                
+                <div className="expense-actions">
+                  <span className="expense-price">-${exp.amount.toFixed(2)}</span>
+                  <button 
+                    data-testid={`btn-delete-${exp.id}`} 
+                    onClick={() => deleteExpense(exp.id)}
+                    className="btn-delete"
+                  >
+                    Eliminar
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
