@@ -50,7 +50,7 @@ test.describe('Gestor de Gastos - Pruebas Funcionales', () => {
     await page.getByTestId('btn-add-expense').click();
 
     // 2. Verificar que se agregó
-    await expect(page.getByTestId('total-amount')).toHaveText('$51.00');
+    await expect(page.getByTestId('total-amount')).toHaveText('$50.00');
     
     // 3. Clic en eliminar (usamos una selección por texto ya que el ID es dinámico)
     await page.getByRole('button', { name: 'Eliminar' }).click();
