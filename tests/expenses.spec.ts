@@ -41,6 +41,23 @@ test.describe('Gestor de Gastos - Pruebas Funcionales', () => {
     await expect(page.getByTestId('total-amount')).toHaveText('$30.50');
   });
 
+    test('TC-05: Debe eliminar un gasto y actualizar el total a cero (0)', async ({ page }) => { 
+        await page.goto(APP_URL);
 
+    //1. Agregar un gasto primero
+    await page.getByTestId('input-description').fill('Gasto a Eliminar');
+    await page.getByTestId('input-amount').fill('50');
+    await page.getByTestId('btn-add-expense').click();
+
+    // 2. Verificar que se agregó
+    await expect(page.getByTestId('total-amount')).toHaveText('$51.00');
+    
+    // 3. Clic en eliminar (usamos una selección por texto ya que el ID es dinámico)
+    await page.getByRole('button', { name: 'Eliminar' }).click();
+
+    // 4. Verificaciones de funcionamiento
+    await expect(page.getByTestId('total-amount')).toHaveText('$0.00');
+    await expect (page.getByTestId('expense-list')).not.toContainText('Gasto a Eliminar');
+});
 
 });
